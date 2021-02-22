@@ -3,8 +3,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
-import jdk.internal.org.jline.utils.Colors;
-
 public class ProgressBar extends JFrame implements Runnable {
 
     private boolean start = false;
@@ -17,7 +15,7 @@ public class ProgressBar extends JFrame implements Runnable {
         this.bar.setLayout(null);
         this.bar.setBounds(position_x, position_y, size_x, size_y);
         this.bar.setStringPainted(true);
-        this.panel.add(bar);
+        panel.add(bar);
         this.thread.start();
 
     }
@@ -40,8 +38,8 @@ public class ProgressBar extends JFrame implements Runnable {
         while (!kill_trhead) {// starting thread
             while (start) {
                 for (int i = 0; i < 100; i++) {
-                    my_bar.setValue(i + 1);
-                    my_bar.setString(String.valueOf(i + 1) + "%");
+                    bar.setValue(i + 1);
+                    bar.setString(String.valueOf(i + 1) + "%");
                     try {
                         Thread.sleep(100);// speed
                     } catch (Exception e) {
@@ -56,23 +54,25 @@ public class ProgressBar extends JFrame implements Runnable {
     public static void main(String[] args) {
 
         // creating a new frame
-        JFrame fame = new JFrame();
-        fame.setSize(700, 400);
-        fame.setLocationRelativeTo(null);
-        fame.setResizable(false);
-        fame.setVisible(true);
-        fame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        JFrame frame = new JFrame();
+        frame.setSize(700, 400);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         
         // creating a new panel
         JPanel panel = new JPanel(null);
         panel.setBounds(0, 0, 700, 400);
-        //frame.getContentPane().add(panel);
+        frame.getContentPane().add(panel);
         
 
         // creating 1 bar
 
-        ProgressBar bar1 = new ProgressBar(panel, 0, 0, 100, 50);
-        ProgressBar bar2 = new ProgressBar(panel, 0, 110, 50, 10);
+        ProgressBar bar1 = new ProgressBar(panel, 50, 0, 250, 50);
+        ProgressBar bar2 = new ProgressBar(panel, 0, 110, 350, 80);
+        bar1.start();
+        bar2.start();
 
     }
 
